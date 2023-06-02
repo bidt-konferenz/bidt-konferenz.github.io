@@ -1,0 +1,37 @@
+@font-face {
+    font-family: 'Everett Regular'; /*a name to be used later*/
+    src: url('../fonts/TWKEverett-Regular-web.woff2'); format('woff2'),
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Neue Montreal';
+    src: url('../fonts/NeueMontreal-Bold.woff2') format('woff2'),
+      url('../font/NeueMontreal-Bold.html') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+
+body {
+    background-color: #DBEFFF;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Adjust this value to set the height of the container */
+}
+
+.centered {
+  text-align: center;
+}
+
+h1 {
+    font-size: 7vw;
+    font-family: "Everett Regular";
+    color: #002951;
+}
