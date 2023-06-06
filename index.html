@@ -26,7 +26,7 @@
 <body>
 
   <div class="container">
-    <h1 class="centered">Survey</h1>
+    <h1 class="centered">Umfrage</h1>
     <div class="button-container">
       <button id="button1">Button 1</button>
       <button id="button2">Button 2</button>
@@ -55,9 +55,9 @@ const chartCanvas = document.getElementById('chart').getContext('2d');
 const chart = new Chart(chartCanvas, {
   type: 'bar',
   data: {
-    labels: ['Button 1', 'Button 2'],
+    labels: ['Spalte 1', 'Spalte 2'],
     datasets: [{
-      label: 'Button Presses',
+      label: 'hier kann was hin',
       data: [button1Count, button2Count],
       backgroundColor: ['rgba(1, 71, 140, 0.6)', 'rgba(85, 175, 245, 0.6)']
     }]
