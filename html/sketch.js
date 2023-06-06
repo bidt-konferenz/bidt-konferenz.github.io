@@ -1,6 +1,6 @@
 let video;
 let asciiDiv;
-const W = 80;
+const W = 110;
 const H = 60;
 // function preload() {
 //   kitten = loadImage('kitten36.jpeg');
