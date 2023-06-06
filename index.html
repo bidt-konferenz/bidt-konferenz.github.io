@@ -16,7 +16,7 @@
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icon.png">
 
-  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
 
   <link rel="manifest" href="site.webmanifest">
@@ -26,15 +26,84 @@
 <body>
 
   <div class="container">
-    <h1 class="centered">Your Heading</h1>
+    <h1 class="centered">Survey</h1>
     <div class="button-container">
-      <button>Button 1</button>
-      <button>Button 2</button>
+      <button id="button1">Button 1</button>
+      <button id="button2">Button 2</button>
+    </div>
+    <div class="chart-container">
+      <canvas id="chart"></canvas>
     </div>
   </div>
   
 
   <script src="js/app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+ // Load the counter from local storage, if available
+let button1Count = parseInt(localStorage.getItem('button1Count')) || 0;
+let button2Count = parseInt(localStorage.getItem('button2Count')) || 0;
+
+// Get references to the buttons
+const button1 = document.getElementById('button1');
+const button2 = document.getElementById('button2');
+
+// Get reference to the chart canvas
+const chartCanvas = document.getElementById('chart').getContext('2d');
+
+// Create a Chart.js instance
+const chart = new Chart(chartCanvas, {
+  type: 'bar',
+  data: {
+    labels: ['Button 1', 'Button 2'],
+    datasets: [{
+      label: 'Button Presses',
+      data: [button1Count, button2Count],
+      backgroundColor: ['rgba(1, 71, 140, 0.6)', 'rgba(85, 175, 245, 0.6)']
+    }]
+  },
+  options: {
+    maintainAspectRatio: true,
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    },
+    plugins: {
+      legend: {
+        position: 'bottom'
+      }
+    }
+  }
+});
+
+// Add event listeners to track button clicks
+button1.addEventListener('click', function() {
+  button1Count++;
+  updateChart();
+  saveCountersToLocalStorage();
+});
+
+button2.addEventListener('click', function() {
+  button2Count++;
+  updateChart();
+  saveCountersToLocalStorage();
+});
+
+// Function to update the chart with the latest data
+function updateChart() {
+  chart.data.datasets[0].data = [button1Count, button2Count];
+  chart.update();
+}
+
+// Function to save the counters to local storage
+function saveCountersToLocalStorage() {
+  localStorage.setItem('button1Count', button1Count);
+  localStorage.setItem('button2Count', button2Count);
+}
+
+  </script>
 
 </body>
 
