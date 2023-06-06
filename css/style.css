@@ -35,3 +35,32 @@ h1 {
     font-family: "Everett Regular";
     color: #002951;
 }
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: #000;
+  font-family: 'Muli', sans-serif;
+  color: #fff;
+}
+
+.title {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 32px;
+}
+
+#Canvas {
+  display: block;
+  position: absolute;
+  top: calc(50% - 270px);
+  left: calc(50% - 480px);
+  width: 960px;
+  height: 540px;
+  z-index: -1;
+/*   border: 1px solid #f00; */
+}

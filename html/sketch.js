@@ -14,7 +14,7 @@ function setup() {
   asciiDiv = createDiv('');
 }
 function draw() {
-  const txt = '       .:-i|=+%O#@'
+  const txt = '       .:-i|=+%O#@→'
   // const dim = 16;
   // createCanvas(W * dim, H * dim);
   background(0);
