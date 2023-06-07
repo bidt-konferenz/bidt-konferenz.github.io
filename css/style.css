@@ -15,6 +15,10 @@
     font-display: swap;
   }
 
+html {
+
+}
+
 body {
     background-color: #DBEFFF;
 }
@@ -133,6 +137,7 @@ button:hover span:last-child {
     transform: rotate(0deg) translate3d(0, 0, 0);
   }
 }
+
 @keyframes storm {
   0% {
     transform: translate3d(0, 0, 0) translateZ(0);
@@ -151,3 +156,17 @@ button:hover span:last-child {
   }
 }
 
+#button3-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+#button3 {
+  font-size: 12px;
+  padding: 24px;
+  border-radius: 50px;
+  color: #ffffff;
+  font-family: "Everett Regular";
+  background-color: #CE4760;
+}
