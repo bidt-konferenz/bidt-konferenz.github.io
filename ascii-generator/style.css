@@ -23,7 +23,7 @@
   font-display: swap;
 }
 
-html, body {
+html {
   margin: 0;
   padding: 0;
   background-color: #000;
@@ -31,7 +31,16 @@ html, body {
   font-family: 'courier';
   font-size: 16pt;
   line-height: 14pt;
+  height: 100%;
 }
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 canvas {
   display: block;
 }
+
