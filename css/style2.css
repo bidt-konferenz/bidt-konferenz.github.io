@@ -1,0 +1,18 @@
+.button-container {
+    display: flex;
+  }
+  
+  .left-button,
+  .right-button {
+    flex: 1;
+    height: 100vh;
+  }
+  
+  .left-button {
+    background-color: #f44336; /* Example color for left button */
+  }
+  
+  .right-button {
+    background-color: #4caf50; /* Example color for right button */
+  }
+  

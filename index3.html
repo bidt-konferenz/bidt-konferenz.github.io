@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rectangle Trigger</title>
+  <style>
+    .rectangle {
+      height: 100vh;
+      width: 50%;
+      display: inline-block;
+      background-color: gray;
+    }
+  </style>
+</head>
+<body>
+  <div class="rectangle" id="leftRectangle">
+    <p>Left Counter: <span id="leftCounter">0</span></p>
+  </div>
+  <div class="rectangle" id="rightRectangle">
+    <p>Right Counter: <span id="rightCounter">0</span></p>
+  </div>
+
+  <script>
+    var leftCounter = 0;
+    var rightCounter = 0;
+
+    function switchPage() {
+      if (leftCounter > 0 || rightCounter > 0) {
+        window.location.href = 'index2.html';
+      }
+    }
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'j') {
+        leftCounter++;
+        document.getElementById('leftCounter').textContent = leftCounter;
+        document.getElementById('leftRectangle').style.backgroundColor = 'green';
+        switchPage();
+      }
+      
+      if (event.key === 'n') {
+        rightCounter++;
+        document.getElementById('rightCounter').textContent = rightCounter;
+        document.getElementById('rightRectangle').style.backgroundColor = 'blue';
+        switchPage();
+      }
+    });
+  </script>
+</body>
+</html>

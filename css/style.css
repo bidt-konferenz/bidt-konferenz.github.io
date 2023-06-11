@@ -29,15 +29,7 @@ h1 {
     color: #002951;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
-  box-sizing: border-box;
-}
+
 
 .centered {
   text-align: center;
@@ -169,4 +161,35 @@ button:hover span:last-child {
   color: #ffffff;
   font-family: "Everett Regular";
   background-color: #CE4760;
+}
+
+.container2 {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.headline {
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.button2 {
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  line-height: 100vh;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.button-left {
+  float: left;
+  background-color: #ccc;
+}
+
+.button-right {
+  float: right;
+  background-color: #ddd;
 }
