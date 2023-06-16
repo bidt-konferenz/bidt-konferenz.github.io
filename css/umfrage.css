@@ -1,0 +1,152 @@
+@font-face {
+    font-family: 'Everett Regular';
+    /*a name to be used later*/
+    src: url('../fonts/TWKEverett-Regular-web.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #39D098;
+}
+
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/keyvisual_green.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    animation: scaleAnimation 6s infinite;
+    z-index: -9999;
+  }
+
+  @keyframes scaleAnimation {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+.handsfree-debugger {
+    display: none;
+}
+
+#handsfree-video {
+    display: none;
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    width: 75%;
+    transition: opacity 0.5s ease-in-out;
+}
+
+h1 {
+    margin: 0;
+    margin-bottom: 200px;
+    font-family: 'Everett Regular';
+    color: #ffffff;
+    font-size: 96px;
+    line-height: 112px;
+    text-align: center;
+    font-weight: normal;
+}
+
+h4 {
+    margin: 0;
+    font-family: 'Everett Regular';
+    color: #ffffff;
+    font-size: 32px;
+    line-height: 40px;
+    text-align: center;
+    font-weight: normal;
+}
+
+.buttons-container {
+    display: flex;
+    gap: 48px;
+}
+
+.bottom-text {
+    padding-bottom: 32px;
+    font-family: 'Everett Regular';
+    color: #ffffff;
+    font-size: 24px;
+    line-height: 32px;
+    text-align: center;
+    font-weight: normal;
+    position: absolute;
+    bottom: 0;
+    margin: 0;
+}
+
+.yes-button {
+    width: 340px;
+    height: 144px;
+    background-color: #ffffff;
+    color: #39D098;
+    border-radius: 100px;
+    border: none;
+    font-family: 'Everett Regular';
+    font-size: 48px;
+    line-height: 56px;
+    transition-duration: 0.4s;
+    -webkit-transition-duration: 0.4s;
+    /* Safari */
+}
+
+.yes-button:hover {
+    transform: scale(1.05);
+}
+
+.no-button {
+    width: 340px;
+    height: 144px;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 100px;
+    font-family: 'Everett Regular';
+    font-size: 48px;
+    line-height: 56px;
+    background-color: #54796700;
+    transition-duration: 0.4s;
+    -webkit-transition-duration: 0.4s;
+}
+
+.no-button:hover {
+    transform: scale(1.05);
+}
+
+.chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 32px;
+}

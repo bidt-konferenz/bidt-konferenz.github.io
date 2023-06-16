@@ -4,8 +4,9 @@ window.addEventListener('resize', onResize); // When window resized
 let renderer, scene, camera;
 let webCam;
 let particles;
+let particleDamping = 0.05; // Adjust the damping factor as needed
 
-function init() {  
+function init() {
     // Get window size
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
@@ -16,17 +17,20 @@ function init() {
     });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(windowWidth, windowHeight);
+    // Set the background color to white
+    renderer.setClearColor(0xffffff); // Set the color to white (hexadecimal value)
+
     // renderer.outputEncoding = THREE.GammaEncoding;
 
     // Create scene
     scene = new THREE.Scene();
 
     // Create camera
-    camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
-    const controls = new THREE.OrbitControls( camera, renderer.domElement );
+    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.2;
-    camera.position.set( 0, 20, 0 );
+    camera.position.set(0, 20, 0);
     controls.update(); // must be called after any manual changes to the camera's transform
     scene.add(camera);
 
@@ -51,28 +55,28 @@ function init() {
 }
 
 // Get videoinput device info
-function getDevices(){
+function getDevices() {
     console.log("getDevices...");
     navigator.mediaDevices.enumerateDevices()
-    .then(function(devices) {
-        devices.forEach(function(device) {
-            if(device.kind == "videoinput"){
-                console.log("device:",device);
-            }
+        .then(function (devices) {
+            devices.forEach(function (device) {
+                if (device.kind == "videoinput") {
+                    console.log("device:", device);
+                }
+            });
+        })
+        .catch(function (err) {
+            console.error('ERROR:', err);
         });
-    })
-    .catch(function(err) {
-        console.error('ERROR:', err);
-    });
 }
 
-function initWebCam(){
+function initWebCam() {
     console.log("initWebCam...");
     webCam = document.createElement('video');
     webCam.id = 'webcam';
     webCam.autoplay = true;
-    webCam.width    = 640;
-    webCam.height   = 480;
+    webCam.width = 640;
+    webCam.height = 480;
 
     const option = {
         video: true,
@@ -86,16 +90,16 @@ function initWebCam(){
 
     // Get image from camera
     media = navigator.mediaDevices.getUserMedia(option)
-    .then(function(stream) {
-        webCam.srcObject = stream;
-        createParticles();
-    }).catch(function(e) {
-        alert("ERROR: " + e.message);
-        // console.error('ERROR:', e.message);
-    });
+        .then(function (stream) {
+            webCam.srcObject = stream;
+            createParticles();
+        }).catch(function (e) {
+            alert("ERROR: " + e.message);
+            // console.error('ERROR:', e.message);
+        });
 }
 
-function getImageData(image){
+function getImageData(image) {
 
     const w = image.width;
     const h = image.height;
@@ -116,7 +120,7 @@ function getImageData(image){
     return imageData
 }
 
-function createParticles(){
+function createParticles() {
     console.log("createParticles...");
     const imageData = getImageData(webCam);
 
@@ -130,9 +134,9 @@ function createParticles(){
     // Set particle info
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            const posX = 0.03*(-x + width / 2);
+            const posX = 0.03 * (-x + width / 2);
             const posY = 0; //0.1*(-y + height / 2)
-            const posZ = 0.03*(y - height / 2);
+            const posZ = 0.03 * (y - height / 2);
             vertices_base.push(posX, posY, posZ);
 
             const r = 1.0;
@@ -147,7 +151,8 @@ function createParticles(){
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     // Set shader material
-    const material = new THREE.ShaderMaterial({
+     // Set shader material
+     const material = new THREE.ShaderMaterial({
         uniforms: {
             time: {
                 type: 'f',
@@ -166,12 +171,62 @@ function createParticles(){
         fragmentShader: fragmentSource,
         transparent: true,
         depthWrite: false,
-        blending: THREE.AdditiveBlending
+        blending: THREE.NormalBlending,
     });
 
     particles = new THREE.Points(geometry, material);
     scene.add(particles);
 }
+
+/*
+function drawParticles(t) {
+    // Update particle info
+    if (particles) {
+        const imageData = getImageData(webCam);
+        const length = particles.geometry.attributes.position.count;
+        for (let i = 0; i < length; i++) {
+            const index = i * 4;
+
+            const targetY = imageData.data[index] / 255 * 10;
+            const currentY = particles.geometry.attributes.position.getY(i);
+            const dampedY = currentY * (1 - particleDamping) + targetY * particleDamping;
+
+            particles.geometry.attributes.position.setY(i, dampedY);
+            particles.geometry.attributes.color.setX(i, 59 / 255);
+            particles.geometry.attributes.color.setY(i, 85 / 255);
+            particles.geometry.attributes.color.setZ(i, 72 / 255);
+        }
+        particles.geometry.attributes.position.needsUpdate = true;
+        particles.geometry.attributes.color.needsUpdate = true;
+    }
+}
+*/
+
+
+function drawParticles(t) {
+    // Update particle info
+    if (particles) {
+        const imageData = getImageData(webCam);
+        const length = particles.geometry.attributes.position.count;
+        for (let i = 0; i < length; i++) {
+            const index = i * 4;
+
+            const targetY = imageData.data[index] / 255 * 10;
+            const currentY = particles.geometry.attributes.position.getY(i);
+            const dampedY = currentY * (1 - particleDamping) + targetY * particleDamping;
+
+            particles.geometry.attributes.position.setY(i, dampedY);
+            particles.geometry.attributes.color.setX(i, 59 / 255);
+            particles.geometry.attributes.color.setY(i, 85 / 255);
+            particles.geometry.attributes.color.setZ(i, 72 / 255);
+        }
+        particles.geometry.attributes.position.needsUpdate = true;
+        particles.geometry.attributes.color.needsUpdate = true;
+    }
+}
+
+/*
+
 
 function drawParticles(t){
     // Update particle info
@@ -180,20 +235,21 @@ function drawParticles(t){
         const length = particles.geometry.attributes.position.count;
         for (let i = 0; i < length; i++) {
             const index = i * 4;
-            const r = imageData.data[index]/255;
-            const g = imageData.data[index+1]/255;
-            const b = imageData.data[index+2]/255;
-            const gray = (r+g+b) / 3;
+            const r = imageData.data[index] / 255;
+            const g = imageData.data[index + 1] / 255;
+            const b = imageData.data[index + 2] / 255;
+            const gray = (r + g + b) / 3;
 
-            particles.geometry.attributes.position.setY( i , gray*10);
-            particles.geometry.attributes.color.setX( i , r);
-            particles.geometry.attributes.color.setY( i , g);
-            particles.geometry.attributes.color.setZ( i , b);
+            particles.geometry.attributes.position.setY(i, particles.geometry.attributes.position.getY(i) * (1 - particleDamping) + gray * 10 * particleDamping);
+            particles.geometry.attributes.color.setX(i, r);
+            particles.geometry.attributes.color.setY(i, g);
+            particles.geometry.attributes.color.setZ(i, b);
         }
         particles.geometry.attributes.position.needsUpdate = true;
         particles.geometry.attributes.color.needsUpdate = true;
     }
 }
+*/
 
 function onResize() {
     const width = window.innerWidth;
