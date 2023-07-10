@@ -1,97 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
-  <title>Gesture Recognition with ml5.js</title>
-  <style>
-    #video {
-      transform: scaleX(-1); /* Flip the video horizontally to match mirror image */
-    }
-    .draggable {
-      position: absolute;
-      width: 100px;
-      height: 100px;
-      background-color: blue;
-      cursor: grab;
-    }
-  </style>
+  <title>Grid Snap Example</title>
+  <link rel="stylesheet" href="css/style.css">
+
+
+  
 </head>
 <body>
-  <video id="video" width="640" height="480" autoplay></video>
-  <div id="draggableElement" class="draggable"></div>
+  <div class="container">
+    <div class="sidebar">
+      <img class="sidebar-item sidebar-image" src="rechteck.svg" alt="Image 1">
+      <img class="sidebar-item sidebar-image" src="kreis1.svg" alt="Image 2">
+      <img class="sidebar-item sidebar-image" src="kreis2.svg" alt="Image 1">
+      <img class="sidebar-item sidebar-image" src="kreis3.svg" alt="Image 2">
+      <img class="sidebar-item sidebar-image" src="kreis4.svg" alt="Image 1">
+      <img class="sidebar-item sidebar-image" src="big_1.svg" alt="Big Image">
 
-  <script src="https://cdn.jsdelivr.net/npm/ml5@0.8.3/dist/ml5.min.js"></script>
+      <!-- Add more sidebar images as needed -->
+    </div>
+
+    <div class="grid">
+      <!-- Generate the grid items dynamically -->
+      <!-- You can also generate them using JavaScript for more flexibility -->
+      <!-- For simplicity, we'll hardcode them here -->
+      <!-- No initial grid items -->
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.11"></script>
+
+  <script src="js/main.js"></script>
   <script>
-    // Variables
-    let handpose;
-    let video;
-    let predictions = [];
 
-    // Load the Handpose model
-    function loadHandposeModel() {
-      handpose = ml5.handpose(video, modelLoaded);
-    }
-
-    // Model loaded callback
-    function modelLoaded() {
-      console.log("Handpose model loaded.");
-    }
-
-    // Start capturing video and detect gestures
-    function startDetection() {
-      video = document.getElementById("video");
-      navigator.mediaDevices.getUserMedia({ video: true })
-        .then(function(stream) {
-          video.srcObject = stream;
-          video.play();
-        })
-        .catch(function(error) {
-          console.log("Video capture error: ", error);
-        });
-
-      handpose.on("predict", gotPredictions);
-    }
-
-    // Callback function for receiving predictions
-    function gotPredictions(results) {
-      predictions = results;
-    }
-
-    // Update the position of the draggable element based on hand movement
-    function updateDraggableElement() {
-      const draggableElement = document.getElementById("draggableElement");
-      if (predictions.length > 0) {
-        const thumb = predictions[0].landmarks[4];
-        const indexFinger = predictions[0].landmarks[8];
-
-        const pinchThreshold = 20; // Adjust this value to fine-tune the pinch gesture sensitivity
-        const isPinching = calculateDistance(thumb, indexFinger) < pinchThreshold;
-
-        if (isPinching) {
-          const { clientX, clientY } = indexFinger;
-          draggableElement.style.left = `${clientX}px`;
-          draggableElement.style.top = `${clientY}px`;
-        }
-      }
-    }
-
-    // Calculate the distance between two points
-    function calculateDistance(point1, point2) {
-      const dx = point1[0] - point2[0];
-      const dy = point1[1] - point2[1];
-      return Math.sqrt(dx * dx + dy * dy);
-    }
-
-    // Initialize the handpose model and start detection
-    loadHandposeModel();
-    startDetection();
-
-    // Update the draggable element's position on every animation frame
-    function update() {
-      updateDraggableElement();
-      requestAnimationFrame(update);
-    }
-    update();
   </script>
 </body>
 </html>
