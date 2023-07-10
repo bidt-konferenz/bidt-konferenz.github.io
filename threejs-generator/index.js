@@ -4,7 +4,7 @@ window.addEventListener('resize', onResize); // When window resized
 let renderer, scene, camera;
 let webCam;
 let particles;
-let particleDamping = 0.05; // Adjust the damping factor as needed
+let particleDamping = 0.1; // Adjust the damping factor as needed
 
 function init() {
     // Get window size

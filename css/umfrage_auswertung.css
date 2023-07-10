@@ -13,7 +13,7 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  background-color: #39D098;
+  background-color: #D1EFDE;
 }
 
 .background-animation {
@@ -72,7 +72,7 @@ h1 {
     margin: 0;
     margin-bottom: 200px;
     font-family: 'Everett Regular';
-    color: #ffffff;
+    color: #547967;
     font-size: 3.750vw;
     line-height: 4.583vw;
     text-align: center;
@@ -82,7 +82,7 @@ h1 {
 h4 {
     margin: 0;
     font-family: 'Everett Regular';
-    color: #ffffff;
+    color: #547967;
     font-size: 32px;
     line-height: 40px;
     text-align: center;

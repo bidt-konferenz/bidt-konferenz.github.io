@@ -12,61 +12,53 @@
     <div class="background-animation"></div>
     <div class="container">
         <h4>These 1</h4>
-        <h1>Die Automatisierung digitaler Kommunikation wird kurzfristig über-, aber langfristig unterschätzt.</h1>
+        <h1>Die Automatisierung digitaler Kommunikation wird kurzfristig &uuml;ber-, aber langfristig untersch&auml;tzt.</h1>
         <div class="buttons-container">
             <button id="yes-button" class="yes-button" onclick="window.location.href='umfrage_2.html';">Ja</button>
-            <button id="no-button" class="no-button" onclick="window.location.href='umfrage_2.html';">Nein</button>
+            <button id="no-button" class="no-button" onclick="window.location.href='umfrage_3.html';">Nein</button>
         </div>
         <video id="handsfree-video" style="visibility: hidden;"></video>
     </div>
     <h6 class="bottom-text">1|4</h6>
     <script src="js/umfrage.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function(event) {
-            // Event-Handler für Daumen nach oben (Yes-Geste)
-            function handleThumbUpGesture() {
-                // Aktionen ausführen, wenn Daumen nach oben erkannt wurde
-                console.log("Daumen nach oben (Yes-Geste)");
-                // Yes-Button programmatisch klicken
-                document.getElementById("yes-button").click();
-            }
+   document.addEventListener("DOMContentLoaded", function(event) {
+    function handleThumbUpGesture() {
+        console.log("Daumen nach oben (Yes-Geste)");
+        document.getElementById("yes-button").click();
+    }
 
-            // Event-Handler für Daumen nach unten (No-Geste)
-            function handleThumbDownGesture() {
-                // Aktionen ausführen, wenn Daumen nach unten erkannt wurde
-                console.log("Daumen nach unten (No-Geste)");
-                // No-Button programmatisch klicken
-                document.getElementById("no-button").click();
-            }
+    function handleThumbDownGesture() {
+        console.log("Daumen nach unten (No-Geste)");
+        document.getElementById("no-button").click();
+    }
 
-            // Handsfree initialisieren
-            const handsfree = new Handsfree({ hands: true });
-            
-            // Event-Handler für Handerkennung
-            handsfree.use('hands', (data) => {
-                // Überprüfe, ob mindestens eine Hand erkannt wurde
-                if (data.hands?.multiHandLandmarks.length > 0) {
-                    const handLandmarks = data.hands.multiHandLandmarks[0];
-                    const thumbTip = handLandmarks[4];
-                    const thumbBase = handLandmarks[2];
-                    const handClosed = thumbTip.y > thumbBase.y;
-                    const isRightHand = data.hands.multiHandedness[0].label === 'Right';
+    const handsfree = new Handsfree({ hands: true });
 
-                    // Überprüfe, ob die erkannte Hand die rechte Hand ist
-                    if (isRightHand) {
-                        if (!handClosed && thumbBase.x < thumbTip.x) {
-                            // Daumen nach oben (Yes-Geste)
-                            handleThumbUpGesture();
-                        } else if (handClosed && thumbBase.x > thumbTip.x) {
-                            // Daumen nach unten (No-Geste)
-                            handleThumbDownGesture();
-                        }
-                    }
+    handsfree.use('hands', (data) => {
+        if (data.hands?.multiHandLandmarks.length > 0) {
+            const handLandmarks = data.hands.multiHandLandmarks[0];
+            const thumbTip = handLandmarks[4]; // Thumb tip landmark
+            const thumbBase = handLandmarks[2]; // Thumb base landmark
+            const fingersAvgY = (handLandmarks[8].y + handLandmarks[12].y + handLandmarks[16].y + handLandmarks[20].y) / 4; // Average Y position of other fingers
+
+            const isRightHand = data.hands.multiHandedness[0].label === 'Right';
+
+            if (isRightHand) {
+                if (thumbTip.y < fingersAvgY && thumbBase.x < thumbTip.x) {
+                    handleThumbUpGesture();
+                } else if (thumbTip.y > fingersAvgY && thumbBase.x > thumbTip.x) {
+                    handleThumbDownGesture();
                 }
-            });
-            // Handsfree starten
-            handsfree.start();
-        });
+            }
+        }
+    });
+
+    handsfree.start();
+});
+
+
+
     </script>
 </body>
 
