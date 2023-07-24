@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Grid Snap Example</title>
+  <title>bidt Pattern Generator</title>
   <link rel="stylesheet" href="css/style.css">
 
 
@@ -9,16 +9,6 @@
 </head>
 <body>
   <div class="container">
-    <div class="sidebar">
-      <img class="sidebar-item sidebar-image" src="rechteck.svg" alt="Image 1">
-      <img class="sidebar-item sidebar-image" src="kreis1.svg" alt="Image 2">
-      <img class="sidebar-item sidebar-image" src="kreis2.svg" alt="Image 1">
-      <img class="sidebar-item sidebar-image" src="kreis3.svg" alt="Image 2">
-      <img class="sidebar-item sidebar-image" src="kreis4.svg" alt="Image 1">
-      <img class="sidebar-item sidebar-image" src="big_1.svg" alt="Big Image">
-
-      <!-- Add more sidebar images as needed -->
-    </div>
 
     <div class="grid">
       <!-- Generate the grid items dynamically -->
@@ -27,11 +17,13 @@
       <!-- No initial grid items -->
     </div>
   </div>
+  <button id="downloadBtn">Download Grid</button>
+
   <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.11"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js"></script>
+
 
   <script src="js/main.js"></script>
-  <script>
-
-  </script>
 </body>
 </html>
