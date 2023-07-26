@@ -22,7 +22,10 @@ var imageUrls = [
 function getRandomPosition() {
   var randomX = Math.floor(Math.random() * 10) * gridSize;
   var randomY = Math.floor(Math.random() * 10) * gridSize;
-  return { x: randomX, y: randomY };
+  return {
+    x: randomX,
+    y: randomY
+  };
 }
 
 // Function to add an image to the grid
@@ -93,13 +96,20 @@ function addImageToGrid(imageUrl) {
           interact.createSnapGrid({
             x: gridSize,
             y: gridSize,
-            offset: { x: gridSize / 2, y: gridSize / 2 } // Adjust the offset to center the images within the grid cells
+            offset: {
+              x: gridSize / 2,
+              y: gridSize / 2
+            } // Adjust the offset to center the images within the grid cells
           })
         ],
         range: Infinity,
-        relativePoints: [{ x: 0, y: 0 }]
+        relativePoints: [{
+          x: 0,
+          y: 0
+        }]
       },
-      inertia: true,
+      inertia: false, // Set inertia to false to avoid offset issue
+      modifiers: {}, // Disable all modifiers to avoid offset issue
       restrict: {
         restriction: '.grid', // Restrict dragging within the grid
         endOnly: true // Only apply restrictions at the end of dragging
@@ -145,19 +155,19 @@ for (var i = 0; i < totalImages; i++) {
 function downloadGrid() {
   // Convert SVG images to base64 data URLs
   var svgs = document.querySelectorAll('.grid svg');
-  svgs.forEach(function(svg) {
+  svgs.forEach(function (svg) {
     var dataURL = "data:image/svg+xml;base64," + window.btoa(new XMLSerializer().serializeToString(svg));
     svg.setAttribute('data-image', dataURL); // Save the data URL in a custom attribute for later restoration
     svg.src = dataURL; // Set the SVG image source to the data URL
   });
 
   // Convert the grid content to an image using dom-to-image
-  domtoimage.toBlob(document.querySelector('.grid')).then(function(blob) {
+  domtoimage.toBlob(document.querySelector('.grid')).then(function (blob) {
     // Save the Blob as a file using FileSaver.js
     saveAs(blob, 'pattern.png');
 
     // Restore the original SVG images
-    svgs.forEach(function(svg) {
+    svgs.forEach(function (svg) {
       var dataURL = svg.getAttribute('data-image');
       svg.src = dataURL;
     });
@@ -165,6 +175,6 @@ function downloadGrid() {
 }
 
 // Attach event listener to the Download Grid button
-document.getElementById('downloadBtn').addEventListener('click', function() {
+document.getElementById('downloadBtn').addEventListener('click', function () {
   downloadGrid();
 });

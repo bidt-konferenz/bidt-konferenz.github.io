@@ -1,0 +1,74 @@
+body {
+  background-color: #ececec;
+}
+
+
+.container {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 70%;
+  overflow: hidden;
+  background-color: #f2f2f2; /* Change to your desired background color */
+}
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      grid-template-rows: repeat(10, 1fr);
+      width: 1000px;
+      height: 1000px;
+      background-color: #ffffff;
+      position: relative;
+      overflow: hidden; /* Added to hide images when dragged outside the grid */
+    }
+
+    .grid-item {
+      width: 100px;
+      height: 100px;
+      pointer-events: auto;
+      position: absolute;
+    }
+
+    .grid-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+/* New styles for the "Download Grid" button */
+#downloadBtn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff; /* Change to your desired button background color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s all;
+}
+
+#downloadBtn:hover {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #015fc4; /* Change to your desired button background color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Center the button horizontally */
+#downloadBtn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
